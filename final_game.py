@@ -15,9 +15,12 @@ running = True
 background = screen.copy()
 draw_background(background)
 
+#clock object
+clock = pygame.time.Clock()
+
 add_log(5)
 
-while running == True:
+while running:
     #exists the game
     for event in pygame.event.get():
         #print(event)
@@ -28,9 +31,19 @@ while running == True:
 
     logs.update()
 
+    for log in logs:
+        if log.rect.x > tile_size+screen_width:
+            logs.remove(log)
+            add_log(1)
+
+
+
+
     logs.draw(screen)
 
     pygame.display.flip()
+
+    clock.tick(30)
 
 
 

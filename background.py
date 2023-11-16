@@ -2,6 +2,7 @@ import pygame
 from game_parameters import *
 from log import logs, Log
 import random
+from player import frog_frames
 
 
 
@@ -49,13 +50,19 @@ def draw_background(surf):
         for y in range(0, screen_height, tile_size):
             surf.blit(grass, (x,screen_height-height*7))
 
+    for x in range(len(frog_frames)):
+        surf.blit(frog_frames[x], (x * 75, 0))
+
     custom_font = pygame.font.Font("../Final/fonts/RoughenCornerRegular-7RjV.ttf", 70)
     text = custom_font.render("Frogger",True,(200,0,0))
     surf.blit(text, ((screen_width/2-text.get_width()/2), screen_height-height*7))
 # def functions to add a random number of objects to eventually be blitted
 def add_log(num_log):
     for _ in range(num_log):
-        logs.add(Log(random.randint(screen_width, screen_height*2), random.randint(0, screen_height-tile_size)))
+        logs.add(Log(0, random.randint(0, screen_height), random.randint(1,3)))
+
+
+
 
 #def add_lilly(num_lilly):
     #for _ in range(num_lilly):
