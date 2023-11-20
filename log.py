@@ -41,9 +41,12 @@ class Log(pygame.sprite.Sprite):
         self.y = y
         self.speed = random.uniform(MIN_SPEED, MAX_SPEED)
 
+
+
     def update(self):
         self.x += self.speed
         self.rect.x = self.x
+        self.rect.y = self.y
 
     def draw(self, surf):
         surf.blit(self.image, self.rect)
