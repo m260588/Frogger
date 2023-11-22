@@ -11,7 +11,8 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load("../Final/sprites/frogjump1.png").convert()
         self.image.set_colorkey((0,0,0))
         self.rect = self.image.get_rect()
-        self.image_flip = pygame.transform.flip(self.image, False, True)
+        self.image_flipy = pygame.transform.flip(self.image, False, True)
+        self.image_flipx = pygame.transform.flip(self.image, True, False)
         self.x = x
         self.y = y
         self.rect.center = (x, y)
@@ -20,15 +21,17 @@ class Player(pygame.sprite.Sprite):
 
     def move_up(self):
         self.y_speed = -PLAYER_SPEED
+        self.image = self.image
     def move_down(self):
         self.y_speed = PLAYER_SPEED
+        self.image = self.image_flipy
     def move_right(self):
         self.x_speed = PLAYER_SPEED
         self.image = pygame.image.load("../Final/sprites/frogjump1.png").convert()
         self.image.set_colorkey((0, 0, 0))
     def move_left(self):
         self.x_speed = -PLAYER_SPEED
-        self.image = self.image_flip
+        self.image = self.image_flipx
 
     def stop(self):
         self.x_speed = 0
@@ -48,6 +51,12 @@ class Player(pygame.sprite.Sprite):
             self.rect.y = 0
         if self.rect.y > screen_height-tile_size:
             self.rect.y = screen_height-tile_size
+
+    def update_center(self):
+        self.x = screen_width/2
+        self.y = screen_height-tile_size
+        self.rect.x = self.x
+        self.rect.y = self.y
 
     def draw(self, surf):
         surf.blit(self.image, self.rect)

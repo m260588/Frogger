@@ -11,7 +11,7 @@ clock = pygame.time.Clock()
 
 
 
-
+pygame.init()
 def draw_background(surf):
     water = pygame.image.load("../Final/sprites/water.png").convert()
     road = pygame.image.load("../Final/sprites/road.png").convert()
@@ -61,6 +61,8 @@ def draw_background(surf):
     custom_font = pygame.font.Font("../Final/fonts/RoughenCornerRegular-7RjV.ttf", 70)
     text = custom_font.render("Frogger",True,(200,0,0))
     surf.blit(text, ((screen_width/2-text.get_width()/2), screen_height-height*7))
+
+
 # def functions to add a random number of objects to eventually be blitted
 def add_log(num_log):
     water = pygame.image.load("../Final/sprites/water.png").convert()
