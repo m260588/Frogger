@@ -1,5 +1,6 @@
 import pygame
 from game_parameters import *
+from background import Log, logs
 
 
 frog_frames = [pygame.image.load("../Final/sprites/frogjump1.png"),pygame.image.load("../Final/sprites/frogjump2.png"),pygame.image.load("../Final/sprites/frogjump3.png"),pygame.image.load("../Final/sprites/frogjump4.png")]
@@ -21,23 +22,25 @@ class Player(pygame.sprite.Sprite):
 
     def move_up(self):
         self.y_speed = -PLAYER_SPEED
-        self.image = self.image
+        self.image = self.image_flipy
+
     def move_down(self):
         self.y_speed = PLAYER_SPEED
         self.image = self.image_flipy
+
     def move_right(self):
         self.x_speed = PLAYER_SPEED
-        self.image = pygame.image.load("../Final/sprites/frogjump1.png").convert()
-        self.image.set_colorkey((0, 0, 0))
+
+
     def move_left(self):
         self.x_speed = -PLAYER_SPEED
-        self.image = self.image_flipx
+
 
     def stop(self):
         self.x_speed = 0
         self.y_speed = 0
+
     def update(self):
-        #TODO need to check if player fish goes off the screen (stop it from going off)
         self.x += self.x_speed
         self.y += self.y_speed
         self.rect.x = self.x
@@ -57,6 +60,11 @@ class Player(pygame.sprite.Sprite):
         self.y = screen_height-tile_size
         self.rect.x = self.x
         self.rect.y = self.y
+
+    def collision_with_log(self): #TODO figure out collision with logs so that the frog stays on the log
+        self.x = Log.rect.x
+        self.y = Log.rect.y
+
 
     def draw(self, surf):
         surf.blit(self.image, self.rect)

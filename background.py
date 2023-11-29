@@ -2,8 +2,9 @@ import pygame
 from game_parameters import *
 from log import logs, Log
 import random
-from player import frog_frames
-import sys
+#from player import Player
+#from player import frog_frames
+#import sys
 from truck import Truck, cars
 
 
@@ -11,7 +12,6 @@ clock = pygame.time.Clock()
 
 
 
-pygame.init()
 def draw_background(surf):
     water = pygame.image.load("../Final/sprites/water.png").convert()
     road = pygame.image.load("../Final/sprites/road.png").convert()
@@ -71,12 +71,21 @@ def add_log(num_log):
         logs.add(Log(0, (screen_height-(height*3)), random.randint(1,3)))
         logs.add(Log(0, (screen_height - (height*5)), random.randint(1, 3)))
 
-def add_car(num_car):
+
+
+def add_car_begin(num_car):
     road = pygame.image.load("../Final/sprites/road.png").convert()
     height = road.get_height()
     for _ in range(num_car):
         cars.add(Truck(0,(screen_height-(height*2)), random.randint(0, 5)))
+
+
+def add_car_end(num_car):
+    road = pygame.image.load("../Final/sprites/road.png").convert()
+    height = road.get_height()
+    for _ in range(num_car):
         cars.add(Truck(0, (screen_height - (height * 6)), random.randint(0, 5)))
+
 
 
 

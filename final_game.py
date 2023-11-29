@@ -1,10 +1,12 @@
 import pygame
 import sys
 from game_parameters import *
-from background import draw_background, add_log, add_car
+from background import draw_background, add_log, add_car_begin, add_car_end #height
 from log import logs
 from player import frog_frames, Player
 from truck import cars
+
+
 #initialize pygame
 pygame.init()
 
@@ -12,6 +14,7 @@ pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Frogger')
 
+#create background
 running = True
 background = screen.copy()
 draw_background(background)
@@ -19,18 +22,23 @@ draw_background(background)
 #clock object
 clock = pygame.time.Clock()
 
+#add objects
 add_log(1)
-add_car(1)
+add_car_begin(1)
+add_car_end(1)
 
+#initialize counter
 lives = NUM_LIVES
 
-player = Player(screen_width/2, screen_height/2)
+#player's initial position
+player = Player(screen_width/2,screen_height-tile_size)
 
 font = pygame.font.Font("../Final/fonts/RoughenCornerRegular-7RjV.ttf", 48)
 
+# main loop
 while lives > 0:
     for event in pygame.event.get():
-        print(event)
+        #print(event)
         if event.type == pygame.QUIT:
             running = False
             player.stop()
@@ -55,31 +63,57 @@ while lives > 0:
 
     cars.update()
 
-    #log_result = pygame.sprite.spritecollide(player, logs, False)
 
     car_result = pygame.sprite.spritecollide(player, cars, True)
 
+    #severson code
+    log_result = pygame.sprite.spritecollide(player, logs, False)
+    for collided_logs in log_result:
+        rect_params = collided_logs.rect  # Access the rect parameters of the collided sprite
+        print("Collision occurred with log at:", rect_params.x, rect_params.y)
+        player.x = rect_params.x
+        player.y = rect_params.y
+
+    # what happens on collision
     if car_result:
-        for _ in range(len(car_result)):
-            lives -= 1
-            player.rect.x = 0
-            player.rect.y = 0
-            player.update_center()
-            add_car(1)
+        if 553 < player.rect.y < 200:
+            for _ in range(len(car_result)):
+                lives -= 1
+                player.update_center()
+                add_car_begin(1)
+        else:
+            for _ in range(len(car_result)):
+                lives -= 1
+                player.update_center()
+                add_car_end(1)
+
+
+
 
     #if log_result:
-        #player.rect = log.rect
+        #player.collision_with_log()
+        #for _ in range(len(log_result)):
+            #for event in pygame.event.get():
+                #if event.type == pygame.KEYDOWN:
+                    #player.x = log.x
+                    #player.y = log.y
 
+    # removes and adds objects when they go off the screen
     for log in logs:
         if log.rect.x > tile_size+screen_width:
             logs.remove(log)
-            add_log(1)
+            #add_log(1)
 
 
     for car in cars:
-        if car.rect.x > tile_size+screen_width:
+        if (car.rect.x > tile_size+screen_width) and (car.y > 200):
             cars.remove(car)
-            add_car(1)
+            add_car_begin(1)
+
+    for car in cars:
+        if (car.rect.x > tile_size+screen_width) and (car.y < 200):
+            cars.remove(car)
+            add_car_end(1)
 
 
     logs.draw(screen)

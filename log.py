@@ -15,20 +15,19 @@ class Log(pygame.sprite.Sprite):
         self.reglog = pygame.image.load("../Final/sprites/reglog.png").convert()
         self.reglog = pygame.transform.scale(self.reglog, (90,50))
         self.reglog.set_colorkey((0, 0, 0))
-        #self.rect_reglog = self.reglog.get_rect()
-        #self.speed_reglog = random.uniform(MIN_SPEED, MAX_SPEED)
+
 
         # #long log
         self.longlog = pygame.image.load("../Final/sprites/longlog.png").convert()
         self.longlog = pygame.transform.scale(self.longlog, (100,50))
         self.longlog.set_colorkey((0, 0, 0))
-        # self.longlog.get_rect()
+
 
         #short log
         self.shortlog = pygame.image.load("../Final/sprites/shortlog.png").convert()
         self.shortlog = pygame.transform.scale(self.shortlog, (75,50))
         self.shortlog.set_colorkey((0, 0, 0))
-        #self.rect_shortlog = self.shortlog.get_rect()
+
 
         if idx == 1:
             self.image = self.reglog
