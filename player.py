@@ -10,6 +10,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         #TODO turn fish in opposite direction
         self.image = pygame.image.load("../Final/sprites/frogjump1.png").convert()
+        #self.image = pygame.transform.scale(self.image, (30, 20))
         self.image.set_colorkey((0,0,0))
         self.rect = self.image.get_rect()
         self.image_flipy = pygame.transform.flip(self.image, False, True)
