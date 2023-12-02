@@ -34,7 +34,8 @@ def run_game():
     add_car_3(1, min, max)
     add_car_4(1, min, max)
 
-
+    music = pygame.mixer.Sound("../final/DDRNES.wav")
+    winner = pygame.mixer.Sound("../final/fanfare_x.wav")
 
 #initialize counter
     lives = NUM_LIVES
@@ -47,6 +48,7 @@ def run_game():
 
 # main loop
     while lives > 0:
+        pygame.mixer.Sound.play(music)
         for event in pygame.event.get():
             #print(event)
             if event.type == pygame.QUIT:
@@ -80,6 +82,10 @@ def run_game():
 
         #what happens if u win
         if player.y < 10:
+            pygame.mixer.Sound.stop(music)  # Pause the music
+            pygame.mixer.Sound.play(winner)
+            pygame.time.delay(1000)  # Delay to allow the winner sound to play
+            pygame.mixer.Sound.play(music)
             SCORE += 1
             for car in cars1:
                 car.increase_speed(2)
