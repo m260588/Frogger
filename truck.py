@@ -3,7 +3,7 @@ import random
 from game_parameters import *
 
 class Truck(pygame.sprite.Sprite):
-    def __init__(self, x, y, idx):
+    def __init__(self, x, y, idx, low, high):
         super().__init__()
         self.image = pygame.image.load("../Final/sprites/truck1.png").convert()
 
@@ -27,6 +27,7 @@ class Truck(pygame.sprite.Sprite):
         self.car3 = pygame.transform.scale(self.car3, (75, 50))
         self.car3.set_colorkey((0, 0, 0))
 
+
         if idx == 1:
             self.image = self.truck1
         elif idx == 2:
@@ -40,9 +41,9 @@ class Truck(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y
-        #self.MIN = MIN_SPEED
-        #self.MAX = MAX_SPEED
-        self.speed = random.uniform(MIN_SPEED, MAX_SPEED)
+        self.low = low
+        self.high = high
+        self.speed = random.uniform(low, high)
 
     def update(self):
         self.x += self.speed
@@ -53,14 +54,7 @@ class Truck(pygame.sprite.Sprite):
         surf.blit(self.image, self.rect)
 
     def increase_speed(self, speed):
-        #self.MIN += speed
-        #self.MAX += speed
-        self.speed = random.uniform(MIN_SPEED + speed, MAX_SPEED)
+        self.speed = random.uniform(self.low + speed, self.high + speed)
 
 
 cars = pygame.sprite.Group()
-
-
-
-
-
