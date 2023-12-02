@@ -1,12 +1,10 @@
 import pygame
 import sys
-
-import game_parameters
 from game_parameters import *
-from background import draw_background, add_car_1, add_car_2, add_car_3, add_car_4
+from background_copy import draw_background, add_car_1, add_car_2, add_car_3, add_car_4
 from player import Player
-from truck import cars
-from TruckFlip import cars1
+from truck_copy import cars
+from flip_copy import cars1
 
 
 
@@ -27,10 +25,13 @@ clock = pygame.time.Clock()
 
 #add objects
 
-add_car_1(1) # TODO fix car 1 & 3
-add_car_2(1)
-add_car_3(1)
-add_car_4(1)
+min = MIN_SPEED
+max = MAX_SPEED
+
+add_car_1(1, min, max) # TODO fix car 1 & 3
+add_car_2(1, min, max)
+add_car_3(1, min, max)
+add_car_4(1, min, max)
 
 
 
@@ -78,14 +79,12 @@ while lives > 0:
     #what happens if u win
     if player.y < 10:
         SCORE += 1
-        #for car in cars1:
-            #car.increase_speed(20)
-        # for car in cars:
-        #     car.increase_speed(20)
+        for car in cars1:
+            car.increase_speed(2)
         for car in cars:
-            game_parameters.MAX_SPEED += 20
-            game_parameters.MIN_SPEED += 20
-        #cars1.increase_speed(100)
+            car.increase_speed(2)
+        min += 2
+        max += 2
         player.update_center()
         cars1.update()
         cars.update()
@@ -96,45 +95,45 @@ while lives > 0:
             for _ in range(len(car_result)):
                 lives -= 1
                 player.update_center()
-                add_car_1(1)
+                add_car_1(1, min, max)
         else:
             for _ in range(len(car_result)):
                 lives -= 1
                 player.update_center()
-                add_car_3(1)
+                add_car_3(1, min, max)
 
     if car1_result:
         if player.rect.y > 300:
             for _ in range(len(car1_result)):
                 lives -= 1
                 player.update_center()
-                add_car_2(1)
+                add_car_2(1, min, max)
         else:
             for _ in range(len(car1_result)):
                 lives -= 1
                 player.update_center()
-                add_car_4(1)
+                add_car_4(1, min, max)
 
 # if cars go off screen
     for car in cars:
         if (car.rect.x > tile_size+screen_width) and (car.y > 200):
             cars.remove(car)
-            add_car_1(1)
+            add_car_1(1, min, max)
 
     for car in cars1:
         if (car.rect.x < -tile_size*1.5) and (car.y > 200):
             cars1.remove(car)
-            add_car_2(1)
+            add_car_2(1, min, max)
 
     for car in cars:
         if (car.rect.x > tile_size+screen_width) and (car.y < 200):
             cars.remove(car)
-            add_car_3(1)
+            add_car_3(1, min, max)
 
     for car in cars1:
         if (car.rect.x < -tile_size*1.5) and (car.y < 200):
             cars1.remove(car)
-            add_car_4(1)
+            add_car_4(1, min, max)
 
     cars.draw(screen)
 

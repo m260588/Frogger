@@ -1,6 +1,6 @@
 import pygame
 from game_parameters import *
-from background import Log, logs
+
 
 
 frog_frames = [pygame.image.load("../Final/sprites/frogjump1.png"),pygame.image.load("../Final/sprites/frogjump2.png"),pygame.image.load("../Final/sprites/frogjump3.png"),pygame.image.load("../Final/sprites/frogjump4.png")]

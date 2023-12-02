@@ -1,8 +1,6 @@
 import pygame
 import random
-
-MIN_SPEED = .5
-MAX_SPEED = 3
+from game_parameters import *
 
 class Truck(pygame.sprite.Sprite):
     def __init__(self, x, y, idx):
@@ -42,6 +40,8 @@ class Truck(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y
+        #self.MIN = MIN_SPEED
+        #self.MAX = MAX_SPEED
         self.speed = random.uniform(MIN_SPEED, MAX_SPEED)
 
     def update(self):
@@ -51,6 +51,11 @@ class Truck(pygame.sprite.Sprite):
 
     def draw(self, surf):
         surf.blit(self.image, self.rect)
+
+    def increase_speed(self, speed):
+        #self.MIN += speed
+        #self.MAX += speed
+        self.speed = random.uniform(MIN_SPEED + speed, MAX_SPEED)
 
 
 cars = pygame.sprite.Group()
