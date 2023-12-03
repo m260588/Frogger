@@ -6,6 +6,7 @@ class TruckFlip(pygame.sprite.Sprite):
     def __init__(self, x, y, idx, low, high):
         super().__init__()
         self.image = pygame.image.load("../Final/sprites/truck1.png").convert()
+        self.image = pygame.transform.flip(self.image, True, False)
 
         self.truck1 = pygame.image.load("../Final/sprites/truck1.png").convert()
         self.truck1 = pygame.transform.scale(self.truck1, (90,50))
@@ -29,14 +30,19 @@ class TruckFlip(pygame.sprite.Sprite):
 
         if idx == 1:
             self.image = self.truck1
+            self.image = pygame.transform.flip(self.image, True, False)
         elif idx == 2:
             self.image = self.truck2
+            self.image = pygame.transform.flip(self.image, True, False)
         elif idx == 3:
             self.image = self.car1
+            self.image = pygame.transform.flip(self.image, True, False)
         elif idx == 4:
             self.image = self.car2
+            self.image = pygame.transform.flip(self.image, True, False)
         else:
             self.image = self.car3
+            self.image = pygame.transform.flip(self.image, True, False)
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y

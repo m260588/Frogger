@@ -81,11 +81,13 @@ def add_car_3(num_car, min, max):
         cars.add(Truck(0, (screen_height-(height*5)), random.randint(0, 5), min, max))
 
 
+
 def add_car_4(num_car, min, max):
     road = pygame.image.load("../Final/sprites/road.png").convert()
     height = road.get_height()
     for _ in range(num_car):
         cars1.add(TruckFlip(screen_width, (screen_height - (height * 6)), random.randint(0, 5), min, max))
+
 
 
 

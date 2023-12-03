@@ -5,11 +5,24 @@ from background import draw_background, add_car_1, add_car_2, add_car_3, add_car
 from player import Player
 from truck import cars
 from TruckFlip import cars1
+#import os
 
 
 
 #initialize pygame
 pygame.init()
+
+def load_high_score():
+    try:
+        with open("highscore.txt", "r") as file:
+            return int(file.read())
+    except FileNotFoundError:
+        return 0
+
+# Save the high score to a file
+def save_high_score(score):
+    with open("highscore.txt", "w") as file:
+        file.write(str(score))
 
 def run_game():
     #create the screen
@@ -44,8 +57,9 @@ def run_game():
 #player's initial position
     player = Player(screen_width/2,screen_height-tile_size)
 
-    font = pygame.font.Font("../Final/fonts/RoughenCornerRegular-7RjV.ttf", 48)
+    font = pygame.font.Font("../Final/fonts/RoughenCornerRegular-7RjV.ttf", 40)
 
+    high_score = load_high_score()
 # main loop
     while lives > 0:
         pygame.mixer.Sound.play(music)
@@ -65,6 +79,9 @@ def run_game():
                     player.move_right()
             if event.type == pygame.KEYUP:
                 player.stop()
+            if SCORE > high_score:
+                high_score = SCORE
+                save_high_score(high_score)
 
 
 
@@ -153,7 +170,10 @@ def run_game():
         screen.blit(text, (text.get_width()-120, screen_height-text.get_height()))
 
         score = font.render(f"Score: {SCORE}", True, (225, 29, 0))
-        screen.blit(score, (screen_width-text.get_width()-120, screen_height-text.get_height()))
+        screen.blit(score, (screen_width-text.get_width()-10, screen_height-text.get_height()))
+
+        highscore = font.render(f"Record: {high_score}", True, (225, 29, 0))
+        screen.blit(highscore, (screen_width - text.get_width() - 35, text.get_height()))
 
         pygame.display.flip()
 

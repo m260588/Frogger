@@ -1,7 +1,8 @@
 import pygame, sys
 from button import Button
 from game_parameters import *
-import subprocess
+from TruckFlip import cars1
+from truck import cars
 from final_game import run_game
 
 pygame.init()
@@ -22,9 +23,6 @@ def play():
 
         SCREEN.fill("black")
 
-        PLAY_TEXT = get_font(45).render("This is the PLAY screen.", True, "White")
-        PLAY_RECT = PLAY_TEXT.get_rect(center=(screen_width/2, screen_height/ 2))
-        SCREEN.blit(PLAY_TEXT, PLAY_RECT)
 
         PLAY_BACK = Button(image=None, pos=(screen_width/2, screen_height/2),
                            text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
@@ -44,28 +42,31 @@ def play():
         pygame.display.update()
 
 
-def options():
+def instructions():
     while True:
-        OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
+        INSTRUCTIONS_MOUSE_POS = pygame.mouse.get_pos()
 
         SCREEN.fill("white")
 
-        OPTIONS_TEXT = get_font(45).render("This is the OPTIONS screen.", True, "Black")
-        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(screen_width/2, screen_height/2))
-        SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
+        INSTRUCTIONS_TEXT = get_font(30).render("Use the arrowkeys to move", True, "Black")
+        INSTRUCTIONS_TEXT_2 = get_font(30).render("The goal is to reach the otherside of the road!", True, "Black")
+        INSTRUCTIONS_RECT = INSTRUCTIONS_TEXT.get_rect(center=(screen_width/2, screen_height/2))
+        INSTRUCTIONS_RECT_2 = INSTRUCTIONS_TEXT.get_rect(center=(screen_width / 3.25, screen_height / 1.75))
+        SCREEN.blit(INSTRUCTIONS_TEXT, INSTRUCTIONS_RECT)
+        SCREEN.blit(INSTRUCTIONS_TEXT_2, INSTRUCTIONS_RECT_2)
 
-        OPTIONS_BACK = Button(image=None, pos=(screen_width/2, screen_height/2),
-                              text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
+        INSTRUCTIONS_BACK = Button(image=None, pos=(screen_width/2, screen_height/1.5),
+                              text_input="BACK", font=get_font(20), base_color="Black", hovering_color="Green")
 
-        OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
-        OPTIONS_BACK.update(SCREEN)
+        INSTRUCTIONS_BACK.changeColor(INSTRUCTIONS_MOUSE_POS)
+        INSTRUCTIONS_BACK.update(SCREEN)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
+                if INSTRUCTIONS_BACK.checkForInput(INSTRUCTIONS_MOUSE_POS):
                     main_menu()
 
         pygame.display.update()
@@ -82,14 +83,14 @@ def main_menu():
 
         PLAY_BUTTON = Button(image=pygame.image.load("../Final/sprites/Play Rect.png"), pos=(screen_width/2, 200),
                              text_input="PLAY", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("../Final/sprites/Options Rect.png"), pos=(screen_width/2, 300),
-                                text_input="OPTIONS", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        INSTRUCTIONS_BUTTON = Button(image=pygame.image.load("../Final/sprites/Options Rect.png"), pos=(screen_width/2, 300),
+                                text_input="INSTRUCTIONS", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         QUIT_BUTTON = Button(image=pygame.image.load("../Final/sprites/Quit Rect.png"), pos=(screen_width/2, 400),
                              text_input="QUIT", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
-        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
+        for button in [PLAY_BUTTON, INSTRUCTIONS_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(SCREEN)
 
@@ -99,9 +100,11 @@ def main_menu():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    cars.empty()
+                    cars1.empty()
                     run_game()
-                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    options()
+                if INSTRUCTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    instructions()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()
