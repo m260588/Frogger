@@ -1,6 +1,5 @@
 import pygame
 import random
-from game_parameters import *
 
 class TruckFlip(pygame.sprite.Sprite):
     def __init__(self, x, y, idx, low, high):

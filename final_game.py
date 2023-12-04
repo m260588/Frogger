@@ -11,12 +11,10 @@ import time
 #initialize pygame
 pygame.init()
 
+#using files to store the highscores
 def load_high_score():
-    try:
-        with open("highscore.txt", "r") as file:
-            return int(file.read())
-    except FileNotFoundError:
-        return 0
+    with open("highscore.txt", "r") as file:
+        return int(file.read())
 
 # Save the high score to a file
 def save_high_score(score):
@@ -91,9 +89,6 @@ def run_game():
             if SCORE > high_score:
                 high_score = SCORE
                 save_high_score(high_score)
-
-
-
 
         player.update()
 

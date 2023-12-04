@@ -10,13 +10,13 @@ pygame.init()
 SCREEN = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Menu")
 
-BG = pygame.image.load("../Final/sprites/Background.png")
+background = pygame.image.load("../Final/sprites/Background.png")
 
 
 def get_font(size):  # Returns Press-Start-2P in the desired size
     return pygame.font.Font("../Final/fonts/RoughenCornerRegular-7RjV.ttf", size)
 
-
+#methods to be called in the menu loop
 def play():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
@@ -49,7 +49,7 @@ def instructions():
         SCREEN.fill("white")
 
         INSTRUCTIONS_TEXT = get_font(30).render("Use the arrowkeys to move", True, "Black")
-        INSTRUCTIONS_TEXT_2 = get_font(30).render("The goal is to reach the otherside of the road!", True, "Black")
+        INSTRUCTIONS_TEXT_2 = get_font(30).render("The goal is to reach the other side of the road!", True, "Black")
         INSTRUCTIONS_RECT = INSTRUCTIONS_TEXT.get_rect(center=(screen_width/2, screen_height/2))
         INSTRUCTIONS_RECT_2 = INSTRUCTIONS_TEXT.get_rect(center=(screen_width / 3.25, screen_height / 1.75))
         SCREEN.blit(INSTRUCTIONS_TEXT, INSTRUCTIONS_RECT)
@@ -71,10 +71,10 @@ def instructions():
 
         pygame.display.update()
 
-
+#main loop/function for the whole menu
 def main_menu():
     while True:
-        SCREEN.blit(BG, (0, 0))
+        SCREEN.blit(background, (0, 0))
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 

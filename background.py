@@ -92,10 +92,4 @@ def add_car_4(num_car, min, max):
 
 
 
-#def add_lilly(num_lilly):
-    #for _ in range(num_lilly):
-        #logs.add(Log(random.randint(screen_width, screen_height * 2), random.randint(0, screen_height - tile_size)))
-
-
-
     pygame.display.flip()
