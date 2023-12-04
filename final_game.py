@@ -5,8 +5,7 @@ from background import draw_background, add_car_1, add_car_2, add_car_3, add_car
 from player import Player
 from truck import cars
 from TruckFlip import cars1
-#import os
-
+import time
 
 
 #initialize pygame
@@ -25,6 +24,12 @@ def save_high_score(score):
         file.write(str(score))
 
 def run_game():
+
+    time_limit = 60
+    start_time = time.time()
+
+
+
     #create the screen
     screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption('Crossy')
@@ -62,6 +67,10 @@ def run_game():
     high_score = load_high_score()
 # main loop
     while lives > 0:
+        elapsed_time = time.time() - start_time
+        print(time_limit - int(elapsed_time))
+        if elapsed_time > time_limit:
+            break
         pygame.mixer.Sound.play(music)
         for event in pygame.event.get():
             #print(event)
@@ -174,6 +183,9 @@ def run_game():
 
         highscore = font.render(f"Record: {high_score}", True, (225, 29, 0))
         screen.blit(highscore, (screen_width - text.get_width() - 35, text.get_height()))
+
+        timer = font.render(f"{time_limit - int(elapsed_time)}", True, (225, 29, 0))
+        screen.blit(timer, (text.get_width()-120, text.get_height()))
 
         pygame.display.flip()
 
