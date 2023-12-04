@@ -13,13 +13,13 @@ pygame.display.set_caption("Menu")
 background = pygame.image.load("../Final/sprites/Background.png")
 
 
-def get_font(size):  # Returns Press-Start-2P in the desired size
+def get_font(size):  # Returns the font in the desired size
     return pygame.font.Font("../Final/fonts/RoughenCornerRegular-7RjV.ttf", size)
 
 #methods to be called in the menu loop
 def play():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() # get mouse position
 
         SCREEN.fill("black")
 
@@ -27,18 +27,13 @@ def play():
         PLAY_BACK = Button(image=None, pos=(screen_width/2, screen_height/2),
                            text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
 
-        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)  # changes the color based on mouse position
         PLAY_BACK.update(SCREEN)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
-                else:
-                    run_game()
         pygame.display.update()
 
 
@@ -65,14 +60,14 @@ def instructions():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN: # clicking back to go to main menu
                 if INSTRUCTIONS_BACK.checkForInput(INSTRUCTIONS_MOUSE_POS):
                     main_menu()
 
         pygame.display.update()
 
 #main loop/function for the whole menu
-def main_menu():
+def main_menu(): #this method is the main source of creating the entire menu
     while True:
         SCREEN.blit(background, (0, 0))
 
@@ -91,7 +86,7 @@ def main_menu():
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
         for button in [PLAY_BUTTON, INSTRUCTIONS_BUTTON, QUIT_BUTTON]:
-            button.changeColor(MENU_MOUSE_POS)
+            button.changeColor(MENU_MOUSE_POS) #changes the color of the button based on mouse position, edits the class
             button.update(SCREEN)
 
         for event in pygame.event.get():
@@ -99,11 +94,11 @@ def main_menu():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS): #when play is clicked it clears the classes of sprites
                     cars.empty()
                     cars1.empty()
                     run_game()
-                if INSTRUCTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if INSTRUCTIONS_BUTTON.checkForInput(MENU_MOUSE_POS): # runs instrcutions when mouse clicks on the button
                     instructions()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()

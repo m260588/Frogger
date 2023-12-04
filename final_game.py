@@ -22,9 +22,9 @@ def save_high_score(score):
         file.write(str(score))
 
 def run_game():
-
+#init time
     time_limit = 60
-    start_time = time.time()
+    start_time = time.time() #uses time's function of time to return value in seconds
 
 
 
@@ -65,11 +65,10 @@ def run_game():
     high_score = load_high_score()
 # main loop
     while lives > 0:
-        elapsed_time = time.time() - start_time
-        print(time_limit - int(elapsed_time))
-        if elapsed_time > time_limit:
+        elapsed_time = time.time() - start_time # set the elapsed time to a variable
+        if elapsed_time > time_limit: #ends the game when the timer ends
             break
-        pygame.mixer.Sound.play(music)
+        pygame.mixer.Sound.play(music) #plays continious music in background
         for event in pygame.event.get():
             #print(event)
             if event.type == pygame.QUIT:
@@ -86,7 +85,7 @@ def run_game():
                     player.move_right()
             if event.type == pygame.KEYUP:
                 player.stop()
-            if SCORE > high_score:
+            if SCORE > high_score: # saves the high scores
                 high_score = SCORE
                 save_high_score(high_score)
 
@@ -105,7 +104,7 @@ def run_game():
         if player.y < 10:
             pygame.mixer.Sound.stop(music)  # Pause the music
             pygame.mixer.Sound.play(winner)
-            pygame.time.delay(1000)  # Delay to allow the winner sound to play
+            pygame.time.delay(800)  # Delay to allow the winner sound to play
             pygame.mixer.Sound.play(music)
             SCORE += 1
             for car in cars1:

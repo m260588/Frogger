@@ -4,7 +4,8 @@ class Button():
 		self.x_pos = pos[0]
 		self.y_pos = pos[1]
 		self.font = font
-		self.base_color, self.hovering_color = base_color, hovering_color
+		self.base_color = base_color
+		self.hovering_color = hovering_color
 		self.text_input = text_input
 		self.text = self.font.render(self.text_input, True, self.base_color)
 		if self.image is None:
@@ -16,12 +17,12 @@ class Button():
 		screen.blit(self.image, self.rect)
 		screen.blit(self.text, self.text_rect)
 
-	def checkForInput(self, position):
+	def checkForInput(self, position): #def method to check for the mouse inputs
 		if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom):
 			return True
 		return False
 
-	def changeColor(self, position):
+	def changeColor(self, position): #def fucntion that will change the colors of the buttons based on mouse pos
 		if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom):
 			self.text = self.font.render(self.text_input, True, self.hovering_color)
 		else:
