@@ -111,8 +111,8 @@ def run_game():
                 car.increase_speed(2)
             for car in cars:
                 car.increase_speed(2)
-            min += 2
-            max += 2
+            min += 1.5
+            max += 1.5
             player.update_center()
             cars1.update()
             cars.update()
